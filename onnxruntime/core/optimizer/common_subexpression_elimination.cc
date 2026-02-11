@@ -185,22 +185,19 @@ bool AreScalarTensorAttributeEqual(const ONNX_NAMESPACE::TensorProto& lhs_t, con
   const void* lhs_value = lhs_t.raw_data().data();
   const void* rhs_value = rhs_t.raw_data().data();
   switch (lhs_t.data_type()) {
-    case onnx::TensorProto_DataType_FLOAT:
-    {
+    case onnx::TensorProto_DataType_FLOAT: {
       float lhs_float_value, rhs_float_value;
       std::memcpy(&lhs_float_value, lhs_value, sizeof(lhs_float_value));
       std::memcpy(&rhs_float_value, rhs_value, sizeof(rhs_float_value));
       return lhs_float_value == rhs_float_value;
     }
-    case onnx::TensorProto_DataType_FLOAT16:
-    {
+    case onnx::TensorProto_DataType_FLOAT16: {
       MLFloat16 lhs_float16_value, rhs_float16_value;
       std::memcpy(&lhs_float16_value, lhs_value, sizeof(lhs_float16_value));
       std::memcpy(&rhs_float16_value, rhs_value, sizeof(rhs_float16_value));
       return lhs_float16_value == rhs_float16_value;
     }
-    case onnx::TensorProto_DataType_INT64:
-    {
+    case onnx::TensorProto_DataType_INT64: {
       int64_t lhs_int64_value, rhs_int64_value;
       std::memcpy(&lhs_int64_value, lhs_value, sizeof(lhs_int64_value));
       std::memcpy(&rhs_int64_value, rhs_value, sizeof(rhs_int64_value));
@@ -257,24 +254,21 @@ std::size_t GetTensorAttributeHash(const ONNX_NAMESPACE::TensorProto& attr_t) {
     int data_type = attr_t.data_type();
     const char* value = attr_t.raw_data().data();
     switch (data_type) {
-      case onnx::TensorProto_DataType_FLOAT:
-      {
+      case onnx::TensorProto_DataType_FLOAT: {
         float float_value;
         std::memcpy(&float_value, value, sizeof(float_value));
         UpdateHash(data_type, hash);
         UpdateHash(float_value, hash);
         break;
       }
-      case onnx::TensorProto_DataType_FLOAT16:
-      {
+      case onnx::TensorProto_DataType_FLOAT16: {
         MLFloat16 float16_value;
         std::memcpy(&float16_value, value, sizeof(float16_value));
         UpdateHash(data_type, hash);
         UpdateHash(static_cast<float>(float16_value), hash);
         break;
       }
-      case onnx::TensorProto_DataType_INT64:
-      {
+      case onnx::TensorProto_DataType_INT64: {
         int64_t int64_value;
         std::memcpy(&int64_value, value, sizeof(int64_value));
         UpdateHash(data_type, hash);
